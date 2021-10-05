@@ -51,6 +51,30 @@ Resources:
             Path: /plant/{id}
             Method: GET
       CodeUri: getPlantByIdFunction
+  deletePlantFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/delete-plant.deletePlantHandler
+      Runtime: nodejs14.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP delete method to delete one plant
+        by id from a DynamoDB table.
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: PlantsTable
+      Environment:
+        Variables:
+          PLANTS_TABLE:
+            Ref: PlantsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /plant/{id}
+            Method: DELETE
+      CodeUri: deletePlantFunction
   postPlantFunction:
     Type: AWS::Serverless::Function
     Properties:
