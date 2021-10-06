@@ -108,6 +108,87 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 2
         WriteCapacityUnits: 2
+  getAllCartsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-all-carts.getAllCartsHandler
+      Runtime: nodejs14.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP get method to get all carts from
+        a DynamoDB table.
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: CartTable
+      Environment:
+        Variables:
+          CART_TABLE:
+            Ref: CartTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /carts
+            Method: GET
+      CodeUri: getAllCartsFunction
+  getUserCartFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-user-cart.getUserCartHandler
+      Runtime: nodejs14.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP get method to get one item by
+        id from a DynamoDB table.
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: CartTable
+      Environment:
+        Variables:
+          CART_TABLE:
+            Ref: CartTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /cart/{id}
+            Method: GET
+      CodeUri: getUserCartFunction
+  postCartFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/post-cart.postCartHandler
+      Runtime: nodejs14.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP post method to add the cart to
+        a DynamoDB table.
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: CartTable
+      Environment:
+        Variables:
+          CART_TABLE:
+            Ref: CartTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /cart
+            Method: POST
+      CodeUri: postCartFunction
+  CartTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
 Outputs:
   WebEndpoint:
     Description: API Gateway endpoint URL for Prod stage

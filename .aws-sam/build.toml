@@ -6,6 +6,6 @@ codeuri = "/home/haleyalee/cognizant/plantome-backend"
 runtime = "nodejs14.x"
 source_md5 = ""
 packagetype = "Zip"
-functions = ["getAllPlantsFunction", "getPlantByIdFunction", "deletePlantFunction", "postPlantFunction"]
+functions = ["getAllPlantsFunction", "getPlantByIdFunction", "deletePlantFunction", "postPlantFunction", "getAllCartsFunction", "getUserCartFunction", "postCartFunction"]
 
 [layer_build_definitions]
